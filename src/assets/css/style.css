@@ -78,6 +78,20 @@
   opacity: 0;
   animation: fadeIn 1.5s ease-in-out forwards;
 }
+
+.map-container {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.map-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.map-frame {
+  border: 2px solid #198754; /* vert Bootstrap */
+}
+
 @media (max-width: 768px) {
   .carousel-title {
     font-size: 2rem;
