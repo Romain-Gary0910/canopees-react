@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Prestations from "./pages/Prestations";
+import Tarifs from "./pages/Tarifs";
 import Footer from "./components/Footer";
 import './assets/css/style.css';
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
           <Route path="/qui-sommes-nous" element={<About />} />
             <Route path="/prestations" element={<Prestations />} />
+             <Route path="/tarifs" element={<Tarifs />} />
         
       </Routes>
       <Footer /> 
