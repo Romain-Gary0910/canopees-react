@@ -5,16 +5,24 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const AdminDashboard = () => {
   const navigate = useNavigate();
 
-  //  Vérifie si l'admin est connecté 
+  const email = localStorage.getItem("email");
+  const userName =
+    email === "tom@canopees.fr"
+      ? "Tom"
+      : email === "bob@canopees.fr"
+      ? "Bob"
+      : "Admin";
+
+  //  Vérifie si le token est présent
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isAdminLoggedIn");
-    if (!isLoggedIn) {
+    const token = localStorage.getItem("token");
+    if (!token) {
       navigate("/connexion");
     }
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem("isAdminLoggedIn");
+    localStorage.removeItem("token");
     navigate("/connexion");
   };
 
@@ -27,7 +35,22 @@ const AdminDashboard = () => {
             🛠️ Espace Admin - Canopées
           </a>
 
-          <div className="collapse navbar-collapse justify-content-end">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#adminNavbar"
+            aria-controls="adminNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <div
+            className="collapse navbar-collapse justify-content-end"
+            id="adminNavbar"
+          >
             <ul className="navbar-nav align-items-center">
               <li className="nav-item me-3">
                 <button
@@ -39,7 +62,7 @@ const AdminDashboard = () => {
               </li>
               <li className="nav-item me-3">
                 <span className="text-white small">
-                  Connecté en tant qu’<strong>Admin</strong>
+                  Bienvenue <strong>{userName}</strong>
                 </span>
               </li>
               <li className="nav-item">
@@ -47,7 +70,7 @@ const AdminDashboard = () => {
                   className="btn btn-danger btn-sm"
                   onClick={handleLogout}
                 >
-                  🚪 Déconnexion
+                  Déconnexion
                 </button>
               </li>
             </ul>

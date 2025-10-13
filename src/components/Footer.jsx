@@ -12,7 +12,7 @@ const Footer = () => {
           </div>
 
           {/* Liens légaux */}
-          <div className="col-12 col-sm-6 text-sm-end">
+          <div className="col-12 col-sm-6 pe-5 text-sm-end">
             <h5 className="text-uppercase">Liens légaux</h5>
             <ul className="list-unstyled">
               <li>
@@ -36,7 +36,13 @@ const Footer = () => {
 
         <hr className="border-secondary" />
         <div className="text-center small mt-1">
-          © 2025 Canopées — Tous droits réservés.
+          © 2025 Canopées — Tous droits réservés ·{" "}
+          <a
+            href="/connexion"
+            className="text-warning text-decoration-none opacity-75"
+          >
+            Espace administrateur
+          </a>
         </div>
       </div>
     </footer>
