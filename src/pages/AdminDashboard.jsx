@@ -89,9 +89,14 @@ const AdminDashboard = () => {
             <div className="col-md-4">
               <div className="card shadow-sm h-100">
                 <div className="card-body text-center">
-                  <h5 className="card-title text-primary">💰 Tarifs</h5>
-                  <p>Modifier les tarifs affichés sur le site.</p>
-                  <button className="btn btn-warning w-100">Gérer</button>
+                  <h5 className="card-title text-primary">Réalisations</h5>
+                  <p>Modifier les textes et les photos des pages acceuil et qui sommes-nous</p>
+                  <button
+                    className="btn btn-warning w-100"
+                    onClick={() => navigate("/admin/accueil/quisommes-nous")}
+                  >
+                    Gérer
+                  </button>
                 </div>
               </div>
             </div>
@@ -99,9 +104,14 @@ const AdminDashboard = () => {
             <div className="col-md-4">
               <div className="card shadow-sm h-100">
                 <div className="card-body text-center">
-                  <h5 className="card-title text-primary">🖼️ Images</h5>
-                  <p>Mettre à jour les photos du site.</p>
-                  <button className="btn btn-warning w-100">Gérer</button>
+                  <h5 className="card-title text-primary">Prestations</h5>
+                  <p>Modifier les textes et les photos de la page prestations.</p>
+                  <button
+                    className="btn btn-warning w-100"
+                    onClick={() => navigate("/admin/prestations")}
+                  >
+                    Gérer
+                  </button>
                 </div>
               </div>
             </div>
@@ -109,9 +119,29 @@ const AdminDashboard = () => {
             <div className="col-md-4">
               <div className="card shadow-sm h-100">
                 <div className="card-body text-center">
-                  <h5 className="card-title text-primary">📝 Textes</h5>
-                  <p>Modifier les descriptions et présentations.</p>
-                  <button className="btn btn-warning w-100">Gérer</button>
+                  <h5 className="card-title text-primary">Contact</h5>
+                  <p>Mettre à jour les contacts et adresse de la société</p>
+                  <button
+                    className="btn btn-warning w-100"
+                    onClick={() => navigate("/admin/contact")}
+                  >
+                    Gérer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              <div className="card shadow-sm h-100">
+                <div className="card-body text-center">
+                  <h5 className="card-title text-primary">Tarifs</h5>
+                  <p>Mettre à jour les tarifs</p>
+                  <button
+                    className="btn btn-warning w-100"
+                    onClick={() => navigate("/admin/tarifs")}
+                  >
+                    Gérer
+                  </button>
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../App.css";
 import { sendContactForm } from "../services/contactService";
 
@@ -11,48 +11,61 @@ function Contact() {
   const [message, setMessage] = useState("");
   const [formSent, setFormSent] = useState(false);
 
+  //bloc pour les infos dynamiques
+  const [contact, setContact] = useState({ telephone: "", email: "" });
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/contact_infos/1")
+      .then((res) => res.json())
+      .then((data) => setContact(data))
+      .catch(() =>
+        console.error("Erreur lors du chargement des informations de contact.")
+      );
+  }, []);
+
   const isNomValide = /^[A-Za-zÀ-ÿ\s'-]+$/.test(nom);
   const isPrenomValide = /^[A-Za-zÀ-ÿ\s'-]+$/.test(prenom);
   const isEmailValide = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const isTelephoneValide = /^[0-9]{10}$/.test(telephone);
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  // Vérifie les champs localement
-  if (!isNomValide || !isPrenomValide || !isEmailValide || !isTelephoneValide) {
-    alert("Merci de vérifier les informations saisies avant d’envoyer.");
-    return;
-  }
+    if (
+      !isNomValide ||
+      !isPrenomValide ||
+      !isEmailValide ||
+      !isTelephoneValide
+    ) {
+      alert("Merci de vérifier les informations saisies avant d’envoyer.");
+      return;
+    }
 
-  const data = {
-    nom,
-    prenom,
-    email,
-    telephone,
-    objet,
-    message,
+    const data = {
+      nom,
+      prenom,
+      email,
+      telephone,
+      objet,
+      message,
+    };
+
+    try {
+      console.log("Données envoyées :", data);
+      await sendContactForm(data);
+      setFormSent(true);
+
+      setNom("");
+      setPrenom("");
+      setEmail("");
+      setTelephone("");
+      setObjet("");
+      setMessage("");
+    } catch (error) {
+      console.error("Erreur lors de l’envoi :", error);
+      alert("Une erreur est survenue. Veuillez réessayer plus tard.");
+    }
   };
-
-  try {
-    console.log("Données envoyées :", data);
-    await sendContactForm(data);
-    setFormSent(true);
-
-    // Réinitialise les champs
-    setNom("");
-    setPrenom("");
-    setEmail("");
-    setTelephone("");
-    setObjet("");
-    setMessage("");
-  } catch (error) {
-    console.error("Erreur lors de l’envoi :", error);
-    alert("Une erreur est survenue. Veuillez réessayer plus tard.");
-  }
-};
-
-
 
   return (
     <div className="contact-page">
@@ -80,19 +93,17 @@ function Contact() {
           <li
             className="list-group-item"
             style={{ cursor: "pointer" }}
-            onClick={() => (window.location.href = "tel:0493000000")}
+            onClick={() => (window.location.href = `tel:${contact.telephone}`)}
           >
-            Téléphone : 📞 04 93 00 00 00
+            Téléphone : 📞 {contact.telephone}
           </li>
 
           <li
             className="list-group-item mt-3"
             style={{ cursor: "pointer" }}
-            onClick={() =>
-              (window.location.href = "mailto:canopees-menton@gmail.com")
-            }
+            onClick={() => (window.location.href = `mailto:${contact.email}`)}
           >
-            E-mail : ✉️ canopees-menton@gmail.com
+            E-mail : ✉️ {contact.email}
           </li>
         </ul>
 
@@ -101,7 +112,7 @@ function Contact() {
           <h2 className="form-title text-center my-4 text-warning">
             Pour un devis, remplissez le formulaire :
           </h2>
-            <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="nom" className="form-label">
                 Nom

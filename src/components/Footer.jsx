@@ -1,4 +1,19 @@
+import React, { useEffect, useState } from "react";
+
 const Footer = () => {
+  const [contact, setContact] = useState({
+    adresse: "",
+    telephone: "",
+    email: "",
+  });
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/contact_infos/1")
+      .then((res) => res.json())
+      .then((data) => setContact(data))
+      .catch((err) => console.error("Erreur de chargement des infos de contact :", err));
+  }, []);
+
   return (
     <footer className="bg-success text-white py-1 mt-5 small">
       <div className="container">
@@ -6,9 +21,9 @@ const Footer = () => {
           {/* Coordonnées */}
           <div className="col-12 col-sm-6 mb-3 mb-md-0">
             <h5 className="text-uppercase">Canopées - Menton</h5>
-            <p className="mb-1">📍 1511 Rte de Super Garavan, 06500 Menton</p>
-            <p className="mb-1">📞 04 93 00 00 00</p>
-            <p className="mb-1">✉️ canopees-menton@gmail.com</p>
+            <p className="mb-1">📍 {contact.adresse}</p>
+            <p className="mb-1">📞 {contact.telephone}</p>
+            <p className="mb-1">✉️ {contact.email}</p>
           </div>
 
           {/* Liens légaux */}

@@ -9,6 +9,8 @@ import Contact from "./pages/Contact";
 import Connexion from "./pages/Connexion";
 import AdminDashboard from "./pages/AdminDashboard";
 import Footer from "./components/Footer";
+import AdminContact from "./pages/AdminContact";
+import AdminPrestation from "./pages/AdminPrestation";
 import "./assets/css/style.css";
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/connexion" element={<Connexion />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/contact" element={<AdminContact />} />
+        <Route path="/admin/prestations" element={<AdminPrestation />} />
       </Routes>
       <Footer />
     </BrowserRouter>
