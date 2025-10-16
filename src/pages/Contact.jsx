@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 import { sendContactForm } from "../services/contactService";
 
@@ -72,7 +72,7 @@ function Contact() {
       <div className="container my-4">
         <div className="row">
           <div className="col-xl-12 col-lg-6">
-            <h1 className="text-center bg-primary text-white p-2 rounded">
+            <h1 className="text-center mb-3 bg-primary text-white p-2 rounded">
               Contact
             </h1>
           </div>

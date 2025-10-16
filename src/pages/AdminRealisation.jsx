@@ -1,0 +1,157 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const AdminRealisation = () => {
+  const navigate = useNavigate();
+  const [realisations, setRealisations] = useState([]);
+  const [message, setMessage] = useState("");
+
+  
+  useEffect(() => {
+       const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/connexion");
+      return;
+    } else {
+      fetch("http://127.0.0.1:8000/api/realisations", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => res.json())
+      .then((data) => {
+     
+        setRealisations(
+          (data.member || []).sort((a, b) => {
+            const isAccueilA = a.titre?.toLowerCase().includes("accueil") || a.titre?.toLowerCase().includes("bienvenue");
+            const isAccueilB = b.titre?.toLowerCase().includes("accueil") || b.titre?.toLowerCase().includes("bienvenue");
+            return isAccueilB - isAccueilA;
+          })
+        ); 
+      })
+      .catch((err) => console.error("Erreur lors du chargement .", err));
+    }
+  }, []);
+
+  // Fonction pour mettre à jour une réalisation
+ const handleSave = async (id, updatedData) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`http://127.0.0.1:8000/api/realisations/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/merge-patch+json",
+        Accept: "application/ld+json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        titre: updatedData.titre,
+        images: updatedData.images,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Erreur serveur :", errorText);
+      throw new Error("❌ Erreur lors de la mise à jour !");
+    }
+
+    setMessage("✅ Modifications enregistrées avec succès !");
+    setTimeout(() => setMessage(""), 3000);
+  } catch (err) {
+    console.error("Erreur :", err);
+    setMessage(`❌ ${err.message}`);
+    setTimeout(() => setMessage(""), 5000);
+  }
+};
+
+  // Fonction pour gérer les changements dans les inputs
+  const handleChange = (id, field, value) => {
+    setRealisations((prev) =>
+      prev.map((r) => (r.id === id ? { ...r, [field]: value } : r))
+    );
+  };
+
+  return (
+    <div className="container my-5">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2 className="text-primary">Gestion de la page d'accueil</h2>
+        <button type="button" className="btn btn-secondary" onClick={() => navigate("/admin")}>
+          Retour
+        </button>
+      </div>
+
+      {message && <div className="alert alert-success text-center">{message}</div>}
+
+      {realisations.map((real) => (
+        <div
+          key={real.id}
+          className="border rounded p-4 mb-4 shadow-sm"
+          style={{
+            backgroundColor: "#f5f0ff",
+            borderColor: "#d1b3ff",
+            borderStyle: "solid",
+            borderWidth: "1px",
+          }}
+        >
+          <div className="card-body">
+            <h5 className="card-title my-3 fw-bold">Bloc : {real.titre}</h5>
+
+            {/* Champ titre */}
+            <div className="mb-3">
+              <label className="form-label fw-bold">Titre</label>
+              <input
+                type="text"
+                className="form-control"
+                value={real.titre || ""}
+                onChange={(e) => handleChange(real.id, "titre", e.target.value)}
+              />
+            </div>
+
+            {/* Champ image */}
+            <div className="mb-3">
+              <label className="form-label fw-bold">Image (nom de fichier)</label>
+              <input
+                type="text"
+                className="form-control"
+                value={real.images || ""}
+                onChange={(e) => handleChange(real.id, "images", e.target.value)}
+              />
+              {real.images && (
+                <img
+                  src={`/images/${real.images}`}
+                  alt={real.titre}
+                  className="img-fluid rounded mt-2"
+                  style={{ maxHeight: "200px", objectFit: "cover" }}
+                />
+              )}
+            </div>
+
+            <button
+              style={{
+                backgroundColor: "#6f42c1",
+                border: "none",
+                color: "#fff",
+                padding: "8px 16px",
+                borderRadius: "5px",
+                transition: "background-color 0.3s",
+              }}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = "#ff8800")}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = "#6f42c1")}
+              onClick={() =>
+                handleSave(real.id, {
+                  titre: real.titre,
+                  images: real.images,
+                })
+              }
+            >
+              Enregistrer
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default AdminRealisation;

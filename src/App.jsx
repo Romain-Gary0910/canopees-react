@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./assets/css/style.css";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -11,7 +12,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Footer from "./components/Footer";
 import AdminContact from "./pages/AdminContact";
 import AdminPrestation from "./pages/AdminPrestation";
-import "./assets/css/style.css";
+import AdminPresentation from "./pages/AdminPresentation";
+import AdminRealisation from "./pages/AdminRealisation";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/contact" element={<AdminContact />} />
         <Route path="/admin/prestations" element={<AdminPrestation />} />
+        <Route path="/admin/presentation" element={<AdminPresentation />} />
+        <Route path="/admin/realisation" element={<AdminRealisation />} />
       </Routes>
       <Footer />
     </BrowserRouter>

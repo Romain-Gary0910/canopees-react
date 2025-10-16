@@ -1,15 +1,25 @@
-import jardinier4 from "../assets/images/jardinier-4.webp";
-import jardinier5 from "../assets/images/jardinier-5.webp";
+import React, { useEffect, useState } from "react";
 
 function About() {
+  const [presentations, setPresentations] = useState(null);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/presentations")
+      .then((response) => response.json())
+      .then((data) => setPresentations(data.member || data["hydra:member"]))
+      .catch((error) => console.error("Erreur lors du chargement :", error));
+  }, []);
+
+  if (!presentations) {
+    return <div className="container my-5 text-center">Chargement...</div>;
+  }
+
   return (
     <div className="container my-5">
       {/* Titre principal */}
       <div className="row">
         <div className="col-xl-12 col-lg-6">
-          <h1 className="text-center bg-primary text-white p-2 rounded">
-            Qui sommes-nous ?
-          </h1>
+          <h1 className="text-center mb-3 bg-primary text-white p-2 rounded">Qui sommes-nous</h1>
         </div>
       </div>
 
@@ -26,9 +36,9 @@ function About() {
         <div className="row align-items-center">
           <div className="col-md-6 col-sm-6">
             <img
-              src={jardinier5}
+              src={`/images/${presentations[0].image}`}
               className="img-fluid rounded w-100 object-fit-cover"
-              alt="Bob taillant des plantes"
+              alt={presentations[0].titre}
             />
           </div>
           <div className="col-md-6 col-sm-6">
@@ -38,15 +48,9 @@ function About() {
                 textShadow: "1px 1px 2px rgba(0, 0, 0, 0.6)",
               }}
             >
-              Bob 🍃
+              {presentations[0].titre}
             </h3>
-            <p>
-              Co-fondateur de <strong>Canopées</strong>, Bob est un passionné
-              d’horticulture. Spécialiste de la taille et de la création
-              paysagère, il met tout son savoir-faire au service des jardins
-              méditerranéens. Toujours le sécateur à la main, il combine rigueur
-              technique et sens artistique.
-            </p>
+            <p>{presentations[0].description}</p>
           </div>
         </div>
       </div>
@@ -61,21 +65,15 @@ function About() {
                 textShadow: "1px 1px 2px rgba(0, 0, 0, 0.6)",
               }}
             >
-              Tom 🏡
+              {presentations[1].titre}
             </h3>
-            <p>
-              Tom, co-fondateur de <strong>Canopées</strong>, est expert en
-              élagage et compostage. Respectueux de la nature et toujours
-              souriant, il intervient aussi bien chez les particuliers que pour
-              les collectivités. Son approche durable et responsable inspire
-              toute l’équipe.
-            </p>
+            <p>{presentations[1].description}</p>
           </div>
           <div className="col-md-6 col-sm-6 col-xs-2 order-md-2 order-1">
             <img
-              src={jardinier4}
+              src={`/images/${presentations[1].image}`}
               className="img-fluid rounded w-100 object-fit-cover"
-              alt="Tom souriant"
+              alt={presentations[1].titre}
             />
           </div>
         </div>

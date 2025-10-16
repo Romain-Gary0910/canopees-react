@@ -10,19 +10,25 @@ const AdminPrestation = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/connexion");
-    } else {
-      fetch("http://127.0.0.1:8000/api/prestations", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("Données reçues :", data);
-          setPrestations(data.member || data["hydra:member"] || []);
-        })
-        .catch(() => setMessage("Erreur lors du chargement des prestations."));
+      return;
     }
+    const fetchPrestations = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/prestations", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Erreur lors du chargement des prestations.");
+        }
+        const data = await response.json();
+        setPrestations(data.member || data["hydra:member"] || []);
+      } catch (error) {
+        setMessage("❌ Erreur lors du chargement des prestations.");
+      }
+    };
+    fetchPrestations();
   }, [navigate]);
 
   const handleChange = (id, field, value) => {
@@ -136,8 +142,17 @@ const AdminPrestation = () => {
         <p>Aucune prestation trouvée.</p>
       ) : (
         prestations.map((prestation) => (
-          <div key={prestation.id} className="bg-light p-4 rounded shadow-sm mb-3">
-            <h5 className="text-success mb-3">{prestation.titre}</h5>
+          <div
+            key={prestation.id}
+            className="border rounded p-4 mb-4 shadow-sm"
+            style={{
+              backgroundColor: "#f5f0ff",
+              borderColor: "#d1b3ff",
+              borderStyle: "solid",
+              borderWidth: "1px",
+            }}
+          >
+            <h5 className="mb-3 fw-bold">{prestation.titre}</h5>
 
             <div className="mb-3">
               <label className="form-label">Titre</label>
@@ -176,10 +191,19 @@ const AdminPrestation = () => {
             </div>
 
             <button
-              className="btn btn-warning"
+              style={{
+                backgroundColor: "#6f42c1",
+                border: "none",
+                color: "#fff",
+                padding: "8px 16px",
+                borderRadius: "5px",
+                transition: "background-color 0.3s",
+              }}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = "#ff8800")}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = "#6f42c1")}
               onClick={() => handleSave(prestation)}
             >
-            Enregistrer les modifications
+              Enregistrer
             </button>
             <button
               className="btn btn-danger ms-2"

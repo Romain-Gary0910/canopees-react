@@ -64,7 +64,15 @@ const AdminContact = () => {
 
       {message && <div className="alert alert-info">{message}</div>}
 
-      <div className="bg-light p-4 rounded shadow-sm">
+      <div
+        className="border rounded p-4 mb-4 shadow-sm"
+        style={{
+          backgroundColor: "#f5f0ff",
+          borderColor: "#d1b3ff",
+          borderStyle: "solid",
+          borderWidth: "1px",
+        }}
+      >
         <div className="mb-3">
           <label className="form-label">Téléphone</label>
           <input
@@ -98,7 +106,20 @@ const AdminContact = () => {
           />
         </div>
 
-        <button className="btn btn-warning mt-3" onClick={handleSave}>
+        <button
+          style={{
+            backgroundColor: "#6f42c1",
+            border: "none",
+            color: "#fff",
+            padding: "8px 16px",
+            borderRadius: "5px",
+            transition: "background-color 0.3s",
+            marginTop: "12px",
+          }}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = "#ff8800")}
+          onMouseLeave={(e) => (e.target.style.backgroundColor = "#6f42c1")}
+          onClick={handleSave}
+        >
           Enregistrer les modifications
         </button>
       </div>

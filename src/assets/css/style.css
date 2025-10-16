@@ -126,6 +126,17 @@ body {
   padding-right: 0 !important;
 }
 
+/* === TITRE DU CARROUSEL (Accueil) === */
+.carousel-caption h1 {
+  font-size: 4rem;
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+  margin-top: -180px;
+  position: relative;
+  z-index: 5;
+}
+
 .carousel-inner .carousel-item img {
   height: 340px;
   margin: 0 auto;
@@ -144,6 +155,49 @@ body {
     height: 520px;
   }
 }
+/* STYLE HOME  */
+
+          .carousel-control-prev-icon,
+          .carousel-control-next-icon {
+            background-color: hsla(260, 29%, 42%, 0.85);
+            border-radius: 50%;
+            padding: 12px;
+          }
+
+/* STYLE PRESTATIONS  */
+        
+          .prestation-card img:hover {
+            transform: scale(1.05);
+          }
+
+          .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+          }
+
+          .prestation-card:hover .overlay {
+            opacity: 1;
+          }
+
+         .btn-prestation {
+  background-color: hsla(260, 29%, 42%, 0.85) !important;
+}
+
+          .btn-prestation:hover {
+  background-color: hsla(260, 33%, 35%, 0.95) !important;
+}
+
+          .modal .img-fluid {
+            width: 100%;
+            height: clamp(140px, 18vw, 200px);
+            object-fit: cover;
+            border-radius: 8px;
+          }
+
+
 .section-title {
   color: white;
   text-align: center;

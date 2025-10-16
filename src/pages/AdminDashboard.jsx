@@ -89,11 +89,26 @@ const AdminDashboard = () => {
             <div className="col-md-4">
               <div className="card shadow-sm h-100">
                 <div className="card-body text-center">
-                  <h5 className="card-title text-primary">Réalisations</h5>
-                  <p>Modifier les textes et les photos des pages acceuil et qui sommes-nous</p>
+                  <h5 className="card-title text-primary">Réalisation</h5>
+                  <p>Modifier les textes et les photos dans l'accueil</p>
                   <button
                     className="btn btn-warning w-100"
-                    onClick={() => navigate("/admin/accueil/quisommes-nous")}
+                    onClick={() => navigate("/admin/realisation")}
+                  >
+                    Gérer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              <div className="card shadow-sm h-100">
+                <div className="card-body text-center">
+                  <h5 className="card-title text-primary">Présentation</h5>
+                  <p>Modifier les textes et les photos des Co-fondateurs</p>
+                  <button
+                    className="btn btn-warning w-100"
+                    onClick={() => navigate("/admin/presentation")}
                   >
                     Gérer
                   </button>

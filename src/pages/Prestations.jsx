@@ -31,7 +31,7 @@ const Prestations = () => {
 
   return (
     <section className="container py-5">
-      <h2 className="text-center mb-5 text-success">Nos Prestations</h2>
+      <h1 className="text-center mb-3 bg-primary text-white p-2 rounded">Nos Prestations</h1>
 
       <div className="row g-4">
         {prestations.map((prestation) => (
@@ -56,7 +56,7 @@ const Prestations = () => {
                 <h3 className="text-white fw-bold mb-3" style={{ textShadow: "2px 2px 6px rgba(0,0,0,0.5)" }}>
                   {prestation.titre}
                 </h3>
-                <button className="btn btn-sm btn-prestation">Voir plus</button>
+                <button className="btn btn-sm btn-prestation" style={{ color: "#fff" }}>Voir plus</button>
               </div>
             </div>
           </div>
@@ -89,47 +89,7 @@ const Prestations = () => {
         )}
       </Modal>
 
-      {/* Styles personnalisés */}
-      <style>
-        {`
-          .prestation-card img:hover {
-            transform: scale(1.05);
-          }
-
-          .overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.3);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-          }
-
-          .prestation-card:hover .overlay {
-            opacity: 1;
-          }
-
-          .btn-prestation {
-            background-color: #5b4b8a;
-            color: #fff;
-            font-weight: 500;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-          }
-
-          .btn-prestation:hover {
-            background-color: #48397a;
-            color: #fff;
-          }
-
-          .modal .img-fluid {
-            width: 100%;
-            height: clamp(140px, 18vw, 200px);
-            object-fit: cover;
-            border-radius: 8px;
-          }
-        `}
-      </style>
+      
     </section>
   );
 };
