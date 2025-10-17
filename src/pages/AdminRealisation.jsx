@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../assets/css/adminTheme.css";
 
 const AdminRealisation = () => {
   const navigate = useNavigate();
@@ -75,8 +76,8 @@ const AdminRealisation = () => {
   return (
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="text-primary">Gestion de la page d'accueil</h2>
-        <button type="button" className="btn btn-secondary" onClick={() => navigate("/admin")}>
+        <h2 className="admin-title">Gestion de la page d'accueil</h2>
+        <button type="button" className="admin-btn" onClick={() => navigate("/admin")}>
           Retour
         </button>
       </div>
@@ -86,13 +87,7 @@ const AdminRealisation = () => {
       {realisations.map((real) => (
         <div
           key={real.id}
-          className="border rounded p-4 mb-4 shadow-sm"
-          style={{
-            backgroundColor: "#f5f0ff",
-            borderColor: "#d1b3ff",
-            borderStyle: "solid",
-            borderWidth: "1px",
-          }}
+          className="admin-card mb-4"
         >
           <div className="card-body">
             <h5 className="card-title my-3 fw-bold">Bloc : {real.titre}</h5>
@@ -128,16 +123,7 @@ const AdminRealisation = () => {
             </div>
 
             <button
-              style={{
-                backgroundColor: "#6f42c1",
-                border: "none",
-                color: "#fff",
-                padding: "8px 16px",
-                borderRadius: "5px",
-                transition: "background-color 0.3s",
-              }}
-              onMouseEnter={(e) => (e.target.style.backgroundColor = "#ff8800")}
-              onMouseLeave={(e) => (e.target.style.backgroundColor = "#6f42c1")}
+              className="admin-btn"
               onClick={() =>
                 handleSave(real.id, {
                   titre: real.titre,

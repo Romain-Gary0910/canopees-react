@@ -14,6 +14,7 @@ import AdminContact from "./pages/AdminContact";
 import AdminPrestation from "./pages/AdminPrestation";
 import AdminPresentation from "./pages/AdminPresentation";
 import AdminRealisation from "./pages/AdminRealisation";
+import AdminTarif from "./pages/AdminTarif";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/admin/prestations" element={<AdminPrestation />} />
         <Route path="/admin/presentation" element={<AdminPresentation />} />
         <Route path="/admin/realisation" element={<AdminRealisation />} />
+        <Route path="/admin/tarifs" element={<AdminTarif />} />
       </Routes>
       <Footer />
     </BrowserRouter>

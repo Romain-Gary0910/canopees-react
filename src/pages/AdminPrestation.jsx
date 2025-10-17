@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../assets/css/adminTheme.css";
 
 const AdminPrestation = () => {
   const navigate = useNavigate();
@@ -125,12 +126,12 @@ const AdminPrestation = () => {
   return (
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="text-primary">Gestion des prestations</h2>
+        <h2 className="admin-title">Gestion des prestations</h2>
         <div>
-          <button className="btn btn-secondary" onClick={() => navigate("/admin")}>
+          <button className="admin-btn" onClick={() => navigate("/admin")}>
           Retour
           </button>
-          <button className="btn btn-success ms-2" onClick={handleAdd}>
+          <button className="admin-btn ms-2" onClick={handleAdd}>
             ➕ Ajouter une prestation
           </button>
         </div>
@@ -144,13 +145,7 @@ const AdminPrestation = () => {
         prestations.map((prestation) => (
           <div
             key={prestation.id}
-            className="border rounded p-4 mb-4 shadow-sm"
-            style={{
-              backgroundColor: "#f5f0ff",
-              borderColor: "#d1b3ff",
-              borderStyle: "solid",
-              borderWidth: "1px",
-            }}
+            className="admin-card mb-4"
           >
             <h5 className="mb-3 fw-bold">{prestation.titre}</h5>
 
@@ -191,16 +186,7 @@ const AdminPrestation = () => {
             </div>
 
             <button
-              style={{
-                backgroundColor: "#6f42c1",
-                border: "none",
-                color: "#fff",
-                padding: "8px 16px",
-                borderRadius: "5px",
-                transition: "background-color 0.3s",
-              }}
-              onMouseEnter={(e) => (e.target.style.backgroundColor = "#ff8800")}
-              onMouseLeave={(e) => (e.target.style.backgroundColor = "#6f42c1")}
+              className="admin-btn"
               onClick={() => handleSave(prestation)}
             >
               Enregistrer

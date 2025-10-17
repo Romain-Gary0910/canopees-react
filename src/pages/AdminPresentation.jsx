@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../assets/css/adminTheme.css";
 
 const AdminPresentation = () => {
   const [presentations, setPresentations] = useState([]);
@@ -66,8 +67,8 @@ const AdminPresentation = () => {
   return (
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="text-primary">Administration – Qui sommes-nous</h2>
-        <button type="button" className="btn btn-secondary" onClick={() => navigate("/admin")}>
+        <h2 className="admin-title">Administration – Qui sommes-nous</h2>
+        <button type="button" className="admin-btn" onClick={() => navigate("/admin")}>
           Retour
         </button>
       </div>
@@ -81,21 +82,15 @@ const AdminPresentation = () => {
       {presentations.map((item, idx) => (
         <form
           key={item.id}
-          className="border rounded p-4 mb-4 shadow-sm"
-          style={{
-            backgroundColor: "#f5f0ff",
-            borderColor: "#d1b3ff",
-            borderStyle: "solid",
-            borderWidth: "1px",
-          }}
+          className="admin-card mb-4"
           onSubmit={(e) => handleSubmit(e, idx, item.id)}
         >
-          <h4 className="mb-3" style={{ color: "#333", fontWeight: "bold" }}>
+          <h4 className="mb-3">
             {item.titre}
           </h4>
 
           <div className="mb-3">
-            <label className="form-label fw-bold" style={{ color: "#333" }}>
+            <label className="form-label fw-bold">
               Description
             </label>
             <textarea
@@ -109,7 +104,7 @@ const AdminPresentation = () => {
           </div>
 
           <div className="mb-3">
-            <label className="form-label fw-bold" style={{ color: "#333" }}>
+            <label className="form-label fw-bold">
               Nom de l’image
             </label>
             <input
@@ -130,25 +125,9 @@ const AdminPresentation = () => {
 
           <button
             type="submit"
-            className="btn"
-            style={{
-              backgroundColor: "#6f42c1",
-              color: "#fff",
-              border: "none",
-              transition: "background-color 0.3s, box-shadow 0.3s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "#ffc107";
-              e.currentTarget.style.color = "#6f42c1";
-              e.currentTarget.style.boxShadow = "0 4px 8px rgba(255, 193, 7, 0.4)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "#6f42c1";
-              e.currentTarget.style.color = "#fff";
-              e.currentTarget.style.boxShadow = "none";
-            }}
+            className="admin-btn"
           >
-          Enregistrer
+            Enregistrer
           </button>
         </form>
       ))}

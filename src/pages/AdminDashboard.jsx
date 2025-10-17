@@ -150,9 +150,9 @@ const AdminDashboard = () => {
               <div className="card shadow-sm h-100">
                 <div className="card-body text-center">
                   <h5 className="card-title text-primary">Tarifs</h5>
-                  <p>Mettre à jour les tarifs</p>
+                  <p>Mettre à jour les tarifs et l'image d'arrière plan</p>
                   <button
-                    className="btn btn-warning w-100"
+                    className="btn mt-4 btn-warning w-100"
                     onClick={() => navigate("/admin/tarifs")}
                   >
                     Gérer
