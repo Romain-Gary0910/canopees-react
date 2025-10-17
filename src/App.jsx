@@ -15,6 +15,8 @@ import AdminPrestation from "./pages/AdminPrestation";
 import AdminPresentation from "./pages/AdminPresentation";
 import AdminRealisation from "./pages/AdminRealisation";
 import AdminTarif from "./pages/AdminTarif";
+import AdminMessage from "./pages/AdminMessage";
+import AdminResponseMessage from "./pages/AdminResponseMessage";
 import Cgu from "./pages/Cgu";
 import Cgv from "./pages/Cgv";
 import MentionLegales from "./pages/MentionLegales";
@@ -39,6 +41,8 @@ function App() {
         <Route path="/cgu" element={<Cgu />} />
         <Route path="/cgv" element={<Cgv />} />
         <Route path="/mentions-legales" element={<MentionLegales />} />
+        <Route path="/admin/messages" element={<AdminMessage />} />
+<Route path="/admin/messages/:id" element={<AdminResponseMessage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

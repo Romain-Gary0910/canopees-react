@@ -17,7 +17,7 @@ const Navbar = () => {
 
         {/* Bouton burger */}
         <button
-          className="navbar-toggler"
+          className="navbar-toggler me-2"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarMenu"

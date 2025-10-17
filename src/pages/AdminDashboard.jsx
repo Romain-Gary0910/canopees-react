@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
+
+  const [unreadCount, setUnreadCount] = useState(0);
 
   const email = localStorage.getItem("email");
   const userName =
@@ -18,6 +20,23 @@ const AdminDashboard = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/connexion");
+    } else {
+      // Récupère le nombre de messages non traités
+      fetch("http://127.0.0.1:8000/api/messages", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/ld+json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const allMessages = data.member || [];
+          const unread = allMessages.filter((m) => !m.traite).length;
+          setUnreadCount(unread);
+        })
+        .catch((err) =>
+          console.error("Erreur lors du chargement des messages :", err)
+        );
     }
   }, [navigate]);
 
@@ -51,7 +70,7 @@ const AdminDashboard = () => {
             className="collapse navbar-collapse justify-content-end"
             id="adminNavbar"
           >
-            <ul className="navbar-nav align-items-center">
+            <ul className="navbar-nav align-items-center gap-3 gap-lg-0">
               <li className="nav-item me-3">
                 <button
                   className="btn btn-outline-warning btn-sm"
@@ -67,7 +86,7 @@ const AdminDashboard = () => {
               </li>
               <li className="nav-item">
                 <button
-                  className="btn btn-danger btn-sm"
+                  className="btn btn-danger me-3 btn-sm"
                   onClick={handleLogout}
                 >
                   Déconnexion
@@ -137,7 +156,7 @@ const AdminDashboard = () => {
                   <h5 className="card-title text-primary">Contact</h5>
                   <p>Mettre à jour les contacts et adresse de la société</p>
                   <button
-                    className="btn btn-warning w-100"
+                    className="btn mt-4 btn-warning w-100"
                     onClick={() => navigate("/admin/contact")}
                   >
                     Gérer
@@ -154,6 +173,28 @@ const AdminDashboard = () => {
                   <button
                     className="btn mt-4 btn-warning w-100"
                     onClick={() => navigate("/admin/tarifs")}
+                  >
+                    Gérer
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              <div className="card shadow-sm h-100">
+                <div className="card-body text-center">
+                  <h5 className="card-title text-primary">
+                    Messages{" "}
+                    {unreadCount > 0 && (
+                      <span className="badge bg-warning text-dark ms-2">
+                        {unreadCount}
+                      </span>
+                    )}
+                  </h5>
+                  <p>Consulter et répondre aux messages envoyés depuis le formulaire de contact</p>
+                  <button
+                    className="btn btn-warning w-100"
+                    onClick={() => navigate("/admin/messages")}
                   >
                     Gérer
                   </button>

@@ -101,7 +101,7 @@ const AdminContact = () => {
           className="admin-btn"
           onClick={handleSave}
         >
-          Enregistrer les modifications
+          Enregistrer
         </button>
       </div>
     </div>

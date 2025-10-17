@@ -24,7 +24,7 @@ const AdminPrestation = () => {
           throw new Error("Erreur lors du chargement des prestations.");
         }
         const data = await response.json();
-        setPrestations(data.member || data["hydra:member"] || []);
+        setPrestations(data.member || []);
       } catch (error) {
         setMessage("❌ Erreur lors du chargement des prestations.");
       }

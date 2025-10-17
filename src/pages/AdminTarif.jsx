@@ -117,7 +117,7 @@ const AdminTarif = () => {
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="text-primary">Administration – Tarifs</h2>
-        <button type="button" className="btn btn-secondary" onClick={() => navigate("/admin")}>
+        <button type="button" className="admin-btn" onClick={() => navigate("/admin")}>
           Retour
         </button>
       </div>
@@ -213,8 +213,8 @@ const AdminTarif = () => {
                   />
                 </div>
 
-                <button type="submit" className="admin-btn w-100">
-                  Enregistrer les modifications
+                <button type="submit" className="admin-btn">
+                  Enregistrer
                 </button>
               </form>
             </div>

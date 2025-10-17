@@ -1,16 +1,21 @@
 export async function sendContactForm(data) {
   console.log("Données envoyées :", data); //  pour vérifier que la fonction est bien appelée
   try {
-    const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    const response = await fetch("http://127.0.0.1:8000/api/messages", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Accept": "application/ld+json",
+        "Content-Type": "application/ld+json"
+      },
       body: JSON.stringify(data),
     });
 
     console.log("Réponse brute :", response); // vérifie que le serveur répond
 
     if (!response.ok) {
-      throw new Error("Erreur lors de l'envoi du message");
+      const text = await response.text();
+      console.error("Réponse API :", response.status, text);
+      throw new Error(text || "Erreur lors de l'envoi du message");
     }
 
     const result = await response.json();
