@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const [contact, setContact] = useState({
@@ -11,7 +12,9 @@ const Footer = () => {
     fetch("http://127.0.0.1:8000/api/contact_infos/1")
       .then((res) => res.json())
       .then((data) => setContact(data))
-      .catch((err) => console.error("Erreur de chargement des infos de contact :", err));
+      .catch((err) =>
+        console.error("Erreur de chargement des infos de contact :", err)
+      );
   }, []);
 
   return (
@@ -22,8 +25,24 @@ const Footer = () => {
           <div className="col-12 col-sm-6 mb-3 mb-md-0">
             <h5 className="text-uppercase">Canopées - Menton</h5>
             <p className="mb-1">📍 {contact.adresse}</p>
-            <p className="mb-1">📞 {contact.telephone}</p>
-            <p className="mb-1">✉️ {contact.email}</p>
+            <p className="mb-1">
+              📞{" "}
+              <a
+                href={`tel:${contact.telephone.replace(/\s+/g, "")}`}
+                className="text-warning text-decoration-none"
+              >
+                {contact.telephone}
+              </a>
+            </p>
+            <p className="mb-1">
+              ✉️{" "}
+              <a
+                href={`mailto:${contact.email}`}
+                className="text-warning text-decoration-none"
+              >
+                {contact.email}
+              </a>
+            </p>
           </div>
 
           {/* Liens légaux */}
@@ -31,19 +50,28 @@ const Footer = () => {
             <h5 className="text-uppercase">Liens légaux</h5>
             <ul className="list-unstyled">
               <li>
-                <a href="/cgu" className="text-warning text-decoration-underline">
+                <Link
+                  to="/cgu"
+                  className="text-warning text-decoration-underline"
+                >
                   Conditions Générales d’Utilisation
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/cgv" className="text-warning text-decoration-underline">
+                <Link
+                  to="/cgv"
+                  className="text-warning text-decoration-underline"
+                >
                   Conditions Générales de Vente
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/mentions-legales" className="text-warning text-decoration-underline">
+                <Link
+                  to="/mentions-legales"
+                  className="text-warning text-decoration-underline"
+                >
                   Mentions légales
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

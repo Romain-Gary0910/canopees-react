@@ -15,6 +15,9 @@ import AdminPrestation from "./pages/AdminPrestation";
 import AdminPresentation from "./pages/AdminPresentation";
 import AdminRealisation from "./pages/AdminRealisation";
 import AdminTarif from "./pages/AdminTarif";
+import Cgu from "./pages/Cgu";
+import Cgv from "./pages/Cgv";
+import MentionLegales from "./pages/MentionLegales";
 
 function App() {
   return (
@@ -33,6 +36,9 @@ function App() {
         <Route path="/admin/presentation" element={<AdminPresentation />} />
         <Route path="/admin/realisation" element={<AdminRealisation />} />
         <Route path="/admin/tarifs" element={<AdminTarif />} />
+        <Route path="/cgu" element={<Cgu />} />
+        <Route path="/cgv" element={<Cgv />} />
+        <Route path="/mentions-legales" element={<MentionLegales />} />
       </Routes>
       <Footer />
     </BrowserRouter>
