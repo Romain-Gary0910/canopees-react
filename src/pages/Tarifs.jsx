@@ -6,14 +6,14 @@ const Tarifs = () => {
   const [selectedCat, setSelectedCat] = useState(null);
   const [background, setBackground] = useState("jardin9.webp"); // image de fond par défaut
 
-useEffect(() => {
+  useEffect(() => {
     fetch("http://127.0.0.1:8000/api/tarifs")
       .then((res) => {
         if (!res.ok) throw new Error("Erreur lors du chargement des tarifs");
         return res.json();
       })
       .then((data) => {
-        const tarifsData = data["member"] || [];
+        const tarifsData = data["hydra:member"] || data.member || data || [];
         setTarifs(tarifsData);
         const firstImage = tarifsData.find((t) => t.image)?.image;
         if (firstImage) setBackground(firstImage);
@@ -32,10 +32,10 @@ useEffect(() => {
     <>
       {/* Title section */}
       <section className="container py-5">
-          <h1 className="text-center mb-3 bg-primary text-white p-2 rounded">Tarifs</h1>
-  
+        <h1 className="text-center mb-3 bg-primary text-white p-2 rounded">
+          Tarifs
+        </h1>
       </section>
-      {/* White divider */}
       <div style={{ backgroundColor: "#fff", height: "30px" }}></div>
       {/* Main background section */}
       <div
@@ -56,36 +56,36 @@ useEffect(() => {
             padding: "50px 20px",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
           <div className="container mt-5 p-4 rounded">
-          {/* === Boutons des catégories === */}
-          <div className="text-center">
-            <h2
-              className="text-white text-shadow"
-              style={{
-                textShadow: "3px 2px 4px rgba(0, 0, 0, 0.8), 0 4px 16px #333",
-                color: "#fff",
-                fontSize: "2.8rem",
-                fontWeight: "bold",
-              }}
-            >
-              Tarifs 2025
-            </h2>
-            <div className="d-flex flex-wrap justify-content-center gap-4 mt-5 mt-md-7">
-              {Object.keys(categories).map((cat, index) => (
-                <button
-                  key={index}
-                  className="btn bg-secondary bg-opacity-75 text-white border-white px-4 py-2"
-                  onClick={() => setSelectedCat(cat)}
-                >
-                  {cat}
-                </button>
-              ))}
+            {/* === Boutons des catégories === */}
+            <div className="text-center">
+              <h2
+                className="text-white text-shadow"
+                style={{
+                  textShadow: "3px 2px 4px rgba(0, 0, 0, 0.8), 0 4px 16px #333",
+                  color: "#fff",
+                  fontSize: "2.8rem",
+                  fontWeight: "bold",
+                }}
+              >
+                Tarifs 2025
+              </h2>
+              <div className="d-flex flex-wrap justify-content-center gap-4 mt-5 mt-md-7">
+                {Object.keys(categories).map((cat, index) => (
+                  <button
+                    key={index}
+                    className="btn bg-secondary bg-opacity-75 text-white border-white px-4 py-2"
+                    onClick={() => setSelectedCat(cat)}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
         </div>
         {/* === Modale affichant la catégorie sélectionnée === */}
         <Modal

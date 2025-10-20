@@ -11,7 +11,7 @@ const Prestations = () => {
     fetch("http://127.0.0.1:8000/api/prestations")
       .then((res) => res.json())
       .then((data) => {
-        setPrestations(data.member || data["hydra:member"] || []);
+        setPrestations(data["hydra:member"] || data.member || data || []);
         setLoading(false);
       })
       .catch(() => {
@@ -20,18 +20,24 @@ const Prestations = () => {
       });
   }, []);
 
-  if (loading) return <p className="text-center my-5">Chargement des prestations...</p>;
+  if (loading)
+    return <p className="text-center my-5">Chargement des prestations...</p>;
   if (error) return <p className="text-danger text-center my-5">{error}</p>;
 
   const getGalleryImages = (imageName) => {
     if (!imageName) return [];
     const baseName = imageName.replace(/\.\w+$/, ""); // retire .webp ou autre extension
-    return Array.from({ length: 5 }, (_, i) => `/images/${baseName}-${i + 1}.webp`);
+    return Array.from(
+      { length: 5 },
+      (_, i) => `/images/${baseName}-${i + 1}.webp`
+    );
   };
 
   return (
     <section className="container py-5">
-      <h1 className="text-center mb-3 bg-primary text-white p-2 rounded">Nos Prestations</h1>
+      <h1 className="text-center mb-3 bg-primary text-white p-2 rounded">
+        Nos Prestations
+      </h1>
 
       <div className="row g-4">
         {prestations.map((prestation) => (
@@ -53,10 +59,18 @@ const Prestations = () => {
                 }}
               />
               <div className="overlay d-flex flex-column justify-content-center align-items-center text-center">
-                <h3 className="text-white fw-bold mb-3" style={{ textShadow: "2px 2px 6px rgba(0,0,0,0.5)" }}>
+                <h3
+                  className="text-white fw-bold mb-3"
+                  style={{ textShadow: "2px 2px 6px rgba(0,0,0,0.5)" }}
+                >
                   {prestation.titre}
                 </h3>
-                <button className="btn btn-sm btn-prestation" style={{ color: "#fff" }}>Voir plus</button>
+                <button
+                  className="btn btn-sm btn-prestation"
+                  style={{ color: "#fff" }}
+                >
+                  Voir plus
+                </button>
               </div>
             </div>
           </div>
@@ -64,7 +78,12 @@ const Prestations = () => {
       </div>
 
       {/* Modale Galerie */}
-      <Modal show={!!selected} onHide={() => setSelected(null)} centered size="lg">
+      <Modal
+        show={!!selected}
+        onHide={() => setSelected(null)}
+        centered
+        size="lg"
+      >
         {selected && (
           <div className="p-4">
             <h4 className="text-success mb-4 text-center">{selected.titre}</h4>
@@ -81,15 +100,16 @@ const Prestations = () => {
               ))}
             </div>
             <div className="text-end mt-4">
-              <button className="btn btn-outline-secondary" onClick={() => setSelected(null)}>
+              <button
+                className="btn btn-outline-secondary"
+                onClick={() => setSelected(null)}
+              >
                 Fermer
               </button>
             </div>
           </div>
         )}
       </Modal>
-
-      
     </section>
   );
 };

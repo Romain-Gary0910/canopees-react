@@ -53,12 +53,15 @@ const AdminMessage = () => {
     }
   };
 
-
   return (
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="admin-title">Administration – Messages reçus</h2>
-        <button type="button" className="admin-btn" onClick={() => navigate("/admin")}>
+        <button
+          type="button"
+          className="admin-btn"
+          onClick={() => navigate("/admin")}
+        >
           Retour
         </button>
       </div>
@@ -100,26 +103,25 @@ const AdminMessage = () => {
                   <td>{msg.message}</td>
                   <td style={{ textAlign: "center" }}>
                     {msg.reponse ? (
-                      <span className="badge bg-success">Traité ✅</span>
+                      <span className="badge bg-success p-3">Traité ✅</span>
                     ) : (
-                      <span className="badge bg-danger">Non traité</span>
+                      <span className="badge bg-danger p-3">Non traité</span>
                     )}
                   </td>
                   <td>
                     <button
                       type="button"
-                      className="admin-btn-small"
+                      className="admin-btn admin-btn-small"
                       onClick={() => navigate(`/admin/messages/${msg.id}`)}
                     >
                       Répondre
                     </button>
-                    
                   </td>
-                                    <td>
+                  <td>
                     <button
                       type="button"
-                      className="admin-btn-small bg-danger text-white"
-                      onClick={() => handleDelete(msg.id)}
+                      className="btn btn-danger ms-2"
+                      onClick={() => handleDelete(prestation.id)}
                     >
                       Supprimer
                     </button>

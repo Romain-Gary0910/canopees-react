@@ -1,6 +1,33 @@
+  // Supprime un tarif
+  const handleDeleteTarif = async (id) => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(`${API_URL}/api/tarifs/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        setTarifs((prev) => prev.filter((tarif) => tarif.id !== id));
+        setMessage("✅ Tarif supprimé !");
+        setTimeout(() => setMessage(""), 2000);
+      } else {
+        const errorText = await response.text();
+        console.error("Erreur lors de la suppression :", response.status, errorText);
+        setMessage("❌ Erreur lors de la suppression !");
+        setTimeout(() => setMessage(""), 3000);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la suppression :", error);
+      setMessage("❌ Erreur lors de la suppression !");
+      setTimeout(() => setMessage(""), 3000);
+    }
+  };
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/adminTheme.css";
+import { API_URL } from "../config/api";
 
 const AdminTarif = () => {
   const [tarifs, setTarifs] = useState([]);
@@ -15,14 +42,14 @@ const AdminTarif = () => {
       navigate("/connexion");
       return;
     } else {
-      fetch("http://127.0.0.1:8000/api/tarifs", {
+      fetch(`${API_URL}/api/tarifs`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
         .then((res) => res.json())
         .then((data) => {
-          const memberTarifs = data["member"] || [];
+          const memberTarifs = data["hydra:member"] || data.member || data || [];
           setTarifs(memberTarifs);
           if (memberTarifs.length > 0 && memberTarifs[0].image) {
             setBackgroundImage(memberTarifs[0].image);
@@ -46,7 +73,7 @@ const AdminTarif = () => {
     const token = localStorage.getItem("token");
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/tarifs/${id}`,
+        `${API_URL}/api/tarifs/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -82,7 +109,7 @@ const AdminTarif = () => {
     const firstTarifId = tarifs[0].id;
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/tarifs/${firstTarifId}`,
+        `${API_URL}/api/tarifs/${firstTarifId}`,
         {
           method: "PATCH",
           headers: {
@@ -113,12 +140,51 @@ const AdminTarif = () => {
     }
   };
 
+  const handleAddTarif = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(`${API_URL}/api/tarifs`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          service: "Nouveau service",
+          prix: "0.0",
+          unite: "",
+          categorie: "Nouvelle catégorie",
+          image: "",
+        }),
+      });
+      if (response.ok) {
+        const newTarif = await response.json();
+        setTarifs((prev) => [...prev, newTarif]);
+        setMessage("✅ Nouveau tarif ajouté !");
+        setTimeout(() => setMessage(""), 2000);
+      } else {
+        const errorText = await response.text();
+        console.error("Erreur lors de l'ajout du tarif :", response.status, errorText);
+        setMessage("❌ Erreur lors de l'ajout du tarif !");
+        setTimeout(() => setMessage(""), 3000);
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'ajout du tarif :", error);
+    }
+  };
+
   return (
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="text-primary">Administration – Tarifs</h2>
         <button type="button" className="admin-btn" onClick={() => navigate("/admin")}>
           Retour
+        </button>
+      </div>
+
+      <div className="mb-3">
+        <button type="button" className="admin-btn" onClick={handleAddTarif}>
+          Ajouter un tarif
         </button>
       </div>
 
@@ -213,9 +279,18 @@ const AdminTarif = () => {
                   />
                 </div>
 
-                <button type="submit" className="admin-btn">
-                  Enregistrer
-                </button>
+                <div className="d-flex gap-2">
+                  <button type="submit" className="admin-btn">
+                    Enregistrer
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger ms-2"
+              onClick={() => handleDelete(prestation.id)}
+                  >
+                    Supprimer
+                  </button>
+                </div>
               </form>
             </div>
           ))
