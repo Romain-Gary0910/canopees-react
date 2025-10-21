@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/adminTheme.css";
+import { API_URL } from "../config/api";
 
 const AdminContact = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const AdminContact = () => {
     if (!token) {
       navigate("/connexion");
     } else {
-      fetch("http://127.0.0.1:8000/api/contact_infos/1", {
+      fetch(`${API_URL}/contact_infos/1`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -33,7 +34,7 @@ const AdminContact = () => {
   const handleSave = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/contact_infos/1", {
+      const response = await fetch(`${API_URL}/contact_infos/1`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/merge-patch+json",

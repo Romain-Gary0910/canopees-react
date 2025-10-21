@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { API_URL } from "../config/api";
 
 function About() {
   const [presentations, setPresentations] = useState(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/presentations")
+    fetch(`${API_URL}/presentations`)
       .then((response) => response.json())
       .then((data) => setPresentations(data.member || data["hydra:member"]))
       .catch((error) => console.error("Erreur lors du chargement :", error));

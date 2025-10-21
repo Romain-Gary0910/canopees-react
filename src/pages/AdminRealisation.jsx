@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/adminTheme.css";
+import { API_URL } from "../config/api";
 
 const AdminRealisation = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const AdminRealisation = () => {
       navigate("/connexion");
       return;
     } else {
-      fetch("http://127.0.0.1:8000/api/realisations", {
+      fetch(`${API_URL}/realisations`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -38,7 +39,7 @@ const AdminRealisation = () => {
  const handleSave = async (id, updatedData) => {
   try {
     const token = localStorage.getItem("token");
-    const response = await fetch(`http://127.0.0.1:8000/api/realisations/${id}`, {
+    const response = await fetch(`${API_URL}/realisations/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/merge-patch+json",

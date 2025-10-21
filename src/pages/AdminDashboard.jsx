@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { API_URL } from "../config/api";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const AdminDashboard = () => {
       navigate("/connexion");
     } else {
       // Récupère le nombre de messages non traités
-      fetch("http://127.0.0.1:8000/api/messages", {
+      fetch(`${API_URL}/messages`, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/ld+json",

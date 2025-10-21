@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/adminTheme.css";
+import { API_URL } from "../config/api";
 
 const AdminMessage = () => {
   const [messages, setMessages] = useState([]);
@@ -13,7 +14,7 @@ const AdminMessage = () => {
     if (!token) {
       navigate("/connexion");
     } else {
-      fetch("http://127.0.0.1:8000/api/messages", {
+      fetch(`${API_URL}/messages`, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/ld+json",
@@ -36,7 +37,7 @@ const AdminMessage = () => {
   const handleDelete = (id) => {
     const token = localStorage.getItem("token");
     if (window.confirm("Voulez-vous vraiment supprimer ce message ?")) {
-      fetch(`http://127.0.0.1:8000/api/messages/${id}`, {
+      fetch(`${API_URL}/messages/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -121,7 +122,7 @@ const AdminMessage = () => {
                     <button
                       type="button"
                       className="btn btn-danger ms-2"
-                      onClick={() => handleDelete(prestation.id)}
+                      onClick={() => handleDelete(msg.id)}
                     >
                       Supprimer
                     </button>

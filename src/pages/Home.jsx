@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Carousel, Container, Row, Col, Image } from "react-bootstrap";
+import { API_URL } from "../config/api";
 
 const Home = () => {
   const [accueil, setAccueil] = useState(null);
@@ -8,7 +9,7 @@ const Home = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/realisations", {
+      const response = await fetch(`${API_URL}/realisations`, {
         cache: "no-store",
       });
       const data = await response.json();

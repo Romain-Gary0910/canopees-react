@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import { API_URL } from "../config/api";
 
 const Tarifs = () => {
   const [tarifs, setTarifs] = useState([]);
@@ -7,7 +8,7 @@ const Tarifs = () => {
   const [background, setBackground] = useState("jardin9.webp"); // image de fond par défaut
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/tarifs")
+    fetch(`${API_URL}/tarifs`)
       .then((res) => {
         if (!res.ok) throw new Error("Erreur lors du chargement des tarifs");
         return res.json();

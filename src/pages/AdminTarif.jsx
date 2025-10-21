@@ -1,3 +1,14 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../assets/css/adminTheme.css";
+import { API_URL } from "../config/api";
+
+const AdminTarif = () => {
+  const [tarifs, setTarifs] = useState([]);
+  const [message, setMessage] = useState("");
+  const [backgroundImage, setBackgroundImage] = useState("");
+  const navigate = useNavigate();
+
   // Supprime un tarif
   const handleDeleteTarif = async (id) => {
     const token = localStorage.getItem("token");
@@ -24,16 +35,6 @@
       setTimeout(() => setMessage(""), 3000);
     }
   };
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../assets/css/adminTheme.css";
-import { API_URL } from "../config/api";
-
-const AdminTarif = () => {
-  const [tarifs, setTarifs] = useState([]);
-  const [message, setMessage] = useState("");
-  const [backgroundImage, setBackgroundImage] = useState("");
-  const navigate = useNavigate();
 
   // Vérifie la présence du token
   useEffect(() => {
@@ -286,7 +287,7 @@ const AdminTarif = () => {
                   <button
                     type="button"
                     className="btn btn-danger ms-2"
-              onClick={() => handleDelete(prestation.id)}
+                    onClick={() => handleDeleteTarif(tarif.id)}
                   >
                     Supprimer
                   </button>

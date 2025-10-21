@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import { API_URL } from "../config/api";
 
 const Prestations = () => {
   const [prestations, setPrestations] = useState([]);
@@ -8,7 +9,7 @@ const Prestations = () => {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/prestations")
+    fetch(`${API_URL}/prestations`)
       .then((res) => res.json())
       .then((data) => {
         setPrestations(data["hydra:member"] || data.member || data || []);

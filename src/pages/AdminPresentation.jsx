@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/adminTheme.css";
+import { API_URL } from "../config/api";
 
 const AdminPresentation = () => {
   const [presentations, setPresentations] = useState([]);
@@ -9,22 +10,22 @@ const AdminPresentation = () => {
 
   // Vérifie la présence du token
   useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    navigate("/connexion");
-  } else {
-    fetch("http://127.0.0.1:8000/api/presentations", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setPresentations(data["member"] || []))
-      .catch(() =>
-        setMessage("Erreur lors du chargement des informations.")
-      );
-  }
-}, [navigate]);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/connexion");
+    } else {
+      fetch(`${API_URL}/presentations`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => setPresentations(data["member"] || []))
+        .catch(() =>
+          setMessage("Erreur lors du chargement des informations.")
+        );
+    }
+  }, [navigate]);
 
   const handleChange = (idx, field, value) => {
     setPresentations((prev) =>
@@ -37,28 +38,28 @@ const AdminPresentation = () => {
     const presentation = presentations[idx];
     try {
       const response = await fetch(
-  `http://127.0.0.1:8000/api/presentations/${id}`,
-  {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/merge-patch+json",
-    },
-    body: JSON.stringify({
-      titre: presentation.titre,
-      description: presentation.description,
-      image: presentation.image,
-    }),
-  }
-);
-     if (response.ok) {
-  setMessage("✅ Modifications enregistrées !");
-  setTimeout(() => setMessage(""), 2000);
-} else {
-  const errorText = await response.text();
-  console.error("Erreur lors du PUT :", response.status, errorText);
-  setMessage("❌ Erreur lors de la sauvegarde !");
-  setTimeout(() => setMessage(""), 3000);
-}
+        `${API_URL}/presentations/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/merge-patch+json",
+          },
+          body: JSON.stringify({
+            titre: presentation.titre,
+            description: presentation.description,
+            image: presentation.image,
+          }),
+        }
+      );
+      if (response.ok) {
+        setMessage("✅ Modifications enregistrées !");
+        setTimeout(() => setMessage(""), 2000);
+      } else {
+        const errorText = await response.text();
+        console.error("Erreur lors du PUT :", response.status, errorText);
+        setMessage("❌ Erreur lors de la sauvegarde !");
+        setTimeout(() => setMessage(""), 3000);
+      }
     } catch (error) {
       console.error("Erreur lors de la sauvegarde :", error);
     }

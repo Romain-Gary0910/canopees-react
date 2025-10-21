@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
 import "../assets/css/adminTheme.css";
+import { API_URL } from "../config/api";
 
 
 const AdminResponseMessage = () => {
@@ -16,7 +18,7 @@ const AdminResponseMessage = () => {
     if (!token) {
       navigate("/connexion");
     } else {
-      fetch(`http://127.0.0.1:8000/api/messages/${id}`, {
+      fetch(`${API_URL}/messages/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/ld+json",
@@ -64,7 +66,7 @@ const AdminResponseMessage = () => {
             className="admin-btn mt-3"
             onClick={() => {
               const token = localStorage.getItem("token");
-              fetch(`http://127.0.0.1:8000/api/messages/${id}`, {
+              fetch(`${API_URL}/messages/${id}`, {
                 method: "PATCH",
                 headers: {
                   Authorization: `Bearer ${token}`,
