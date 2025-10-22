@@ -81,12 +81,12 @@ const Footer = () => {
         <hr className="border-secondary" />
         <div className="text-center small mt-1">
           © 2025 Canopées — Tous droits réservés ·{" "}
-          <a
-            href="/connexion"
+          <Link
+            to="/connexion"
             className="text-warning text-decoration-none opacity-75"
           >
             Espace administrateur
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
