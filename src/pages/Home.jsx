@@ -9,7 +9,7 @@ const Home = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${API_URL}/realisations`, {
+      const response = await fetch(`${API_URL}/api/realisations`, {
         cache: "no-store",
       });
       const data = await response.json();
