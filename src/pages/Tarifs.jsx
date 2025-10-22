@@ -8,7 +8,7 @@ const Tarifs = () => {
   const [background, setBackground] = useState("jardin9.webp"); // image de fond par défaut
 
   useEffect(() => {
-    fetch(`${API_URL}/tarifs`)
+    fetch(`${API_URL}/api/tarifs`)
       .then((res) => {
         if (!res.ok) throw new Error("Erreur lors du chargement des tarifs");
         return res.json();

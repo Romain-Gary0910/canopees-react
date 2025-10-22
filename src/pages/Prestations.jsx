@@ -9,7 +9,7 @@ const Prestations = () => {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    fetch(`${API_URL}/prestations`)
+    fetch(`${API_URL}/api/prestations`)
       .then((res) => res.json())
       .then((data) => {
         setPrestations(data["hydra:member"] || data.member || data || []);

@@ -5,7 +5,7 @@ function About() {
   const [presentations, setPresentations] = useState(null);
 
   useEffect(() => {
-    fetch(`${API_URL}/presentations`)
+    fetch(`${API_URL}/api/presentations`)
       .then((response) => response.json())
       .then((data) => setPresentations(data.member || data["hydra:member"]))
       .catch((error) => console.error("Erreur lors du chargement :", error));
