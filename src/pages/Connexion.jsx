@@ -29,26 +29,18 @@ const Connexion = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      console.log("🔍 Statut de la réponse:", response.status);
-
-      const text = await response.text();
-      console.log("📦 Contenu brut de la réponse:", text);
-
       if (!response.ok) {
-        throw new Error(`❌ Erreur serveur (${response.status})`);
+        throw new Error("❌ Identifiants incorrects");
       }
 
+      const text = await response.text();
       const data = text ? JSON.parse(text) : {};
-      console.log("✅ Données JSON parsées:", data);
-
       if (!data?.token) throw new Error("Réponse invalide du serveur");
-
       localStorage.setItem("token", data.token);
       localStorage.setItem("email", email);
       setMessage("✅ Connexion réussie !");
       navigate("/admin");
     } catch (error) {
-      console.error("🚨 Erreur attrapée:", error);
       setMessage(error.message);
     } finally {
       setIsLoading(false);
