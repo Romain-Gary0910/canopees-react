@@ -16,7 +16,7 @@ function Contact() {
   const [contact, setContact] = useState({ telephone: "", email: "" });
 
   useEffect(() => {
-    fetch(`${API_URL}/contact_infos/1`)
+    fetch(`${API_URL}/api/contact_infos/1`)
       .then((res) => res.json())
       .then((data) => setContact(data))
       .catch(() =>
