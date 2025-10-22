@@ -1,3 +1,4 @@
+console.log("🌍 VITE_API_URL détectée :", import.meta.env.VITE_API_URL);
 // src/config/api.js
 
 // Récupère automatiquement l’URL de l’API selon l’environnement (dev ou prod)
