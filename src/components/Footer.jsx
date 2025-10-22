@@ -10,7 +10,7 @@ const Footer = () => {
   });
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/contact_infos/1")
+    fetch(`${API_URL}/api/contact_infos/1`)
       .then((res) => res.json())
       .then((data) => setContact(data))
       .catch((err) =>
