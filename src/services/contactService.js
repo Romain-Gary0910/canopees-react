@@ -1,7 +1,9 @@
+import { API_URL } from "../config/api";
+
 export async function sendContactForm(data) {
   console.log("Données envoyées :", data); //  pour vérifier que la fonction est bien appelée
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/messages", {
+    const response = await fetch(`${API_URL}/api/messages`, {
       method: "POST",
       headers: {
         "Accept": "application/ld+json",
