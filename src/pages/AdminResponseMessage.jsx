@@ -18,7 +18,7 @@ const AdminResponseMessage = () => {
     if (!token) {
       navigate("/connexion");
     } else {
-      fetch(`${API_URL}/messages/${id}`, {
+      fetch(`${API_URL}/api/messages/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/ld+json",

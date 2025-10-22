@@ -14,7 +14,7 @@ const AdminPresentation = () => {
     if (!token) {
       navigate("/connexion");
     } else {
-      fetch(`${API_URL}/presentations`, {
+      fetch(`${API_URL}/api/presentations`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

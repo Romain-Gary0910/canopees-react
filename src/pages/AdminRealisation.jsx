@@ -15,7 +15,7 @@ const AdminRealisation = () => {
       navigate("/connexion");
       return;
     } else {
-      fetch(`${API_URL}/realisations`, {
+      fetch(`${API_URL}/api/realisations`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

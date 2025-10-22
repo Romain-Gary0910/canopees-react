@@ -23,7 +23,7 @@ const AdminDashboard = () => {
       navigate("/connexion");
     } else {
       // Récupère le nombre de messages non traités
-      fetch(`${API_URL}/messages`, {
+      fetch(`${API_URL}/api/messages`, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/ld+json",

@@ -14,7 +14,7 @@ const AdminContact = () => {
     if (!token) {
       navigate("/connexion");
     } else {
-      fetch(`${API_URL}/contact_infos/1`, {
+      fetch(`${API_URL}/api/contact_infos/1`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
