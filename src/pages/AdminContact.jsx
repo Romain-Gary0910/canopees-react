@@ -34,7 +34,7 @@ const AdminContact = () => {
   const handleSave = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`${API_URL}/contact_infos/1`, {
+      const response = await fetch(`${API_URL}/api/contact_infos/1`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/merge-patch+json",
