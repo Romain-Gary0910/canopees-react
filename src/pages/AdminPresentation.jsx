@@ -21,9 +21,7 @@ const AdminPresentation = () => {
       })
         .then((res) => res.json())
         .then((data) => setPresentations(data["member"] || []))
-        .catch(() =>
-          setMessage("Erreur lors du chargement des informations.")
-        );
+        .catch(() => setMessage("Erreur lors du chargement des informations."));
     }
   }, [navigate]);
 
@@ -37,20 +35,19 @@ const AdminPresentation = () => {
     e.preventDefault();
     const presentation = presentations[idx];
     try {
-      const response = await fetch(
-        `${API_URL}/api/presentations/${id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/merge-patch+json",
-          },
-          body: JSON.stringify({
-            titre: presentation.titre,
-            description: presentation.description,
-            image: presentation.image,
-          }),
-        }
-      );
+      const token = localStorage.getItem("token");
+      const response = await fetch(`${API_URL}/api/presentations/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/merge-patch+json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          titre: presentation.titre,
+          description: presentation.description,
+          image: presentation.image,
+        }),
+      });
       if (response.ok) {
         setMessage("✅ Modifications enregistrées !");
         setTimeout(() => setMessage(""), 2000);
@@ -69,7 +66,11 @@ const AdminPresentation = () => {
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="admin-title">Administration – Qui sommes-nous</h2>
-        <button type="button" className="admin-btn" onClick={() => navigate("/admin")}>
+        <button
+          type="button"
+          className="admin-btn"
+          onClick={() => navigate("/admin")}
+        >
           Retour
         </button>
       </div>
@@ -86,28 +87,20 @@ const AdminPresentation = () => {
           className="admin-card mb-4"
           onSubmit={(e) => handleSubmit(e, idx, item.id)}
         >
-          <h4 className="mb-3">
-            {item.titre}
-          </h4>
+          <h4 className="mb-3">{item.titre}</h4>
 
           <div className="mb-3">
-            <label className="form-label fw-bold">
-              Description
-            </label>
+            <label className="form-label fw-bold">Description</label>
             <textarea
               className="form-control"
               rows="4"
               value={item.description || ""}
-              onChange={(e) =>
-                handleChange(idx, "description", e.target.value)
-              }
+              onChange={(e) => handleChange(idx, "description", e.target.value)}
             />
           </div>
 
           <div className="mb-3">
-            <label className="form-label fw-bold">
-              Nom de l’image
-            </label>
+            <label className="form-label fw-bold">Nom de l’image</label>
             <input
               type="text"
               className="form-control"
@@ -124,10 +117,7 @@ const AdminPresentation = () => {
             )}
           </div>
 
-          <button
-            type="submit"
-            className="admin-btn"
-          >
+          <button type="submit" className="admin-btn">
             Enregistrer
           </button>
         </form>
