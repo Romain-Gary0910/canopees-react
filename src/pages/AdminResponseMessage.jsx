@@ -66,7 +66,7 @@ const AdminResponseMessage = () => {
             className="admin-btn mt-3"
             onClick={() => {
               const token = localStorage.getItem("token");
-              fetch(`${API_URL}/messages/${id}`, {
+              fetch(`${API_URL}/api/messages/${id}`, {
                 method: "PATCH",
                 headers: {
                   Authorization: `Bearer ${token}`,
