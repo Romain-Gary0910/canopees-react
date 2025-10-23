@@ -88,6 +88,12 @@ const Prestations = () => {
         {selected && (
           <div className="p-4">
             <h4 className="text-success mb-4 text-center">{selected.titre}</h4>
+            {selected.description && (
+              <p className="text-muted text-center mb-4">
+                {selected.description}
+              </p>
+            )}
+
             <div className="row g-3">
               {getGalleryImages(selected.image).map((img, index) => (
                 <div key={index} className="col-6 col-md-4">
