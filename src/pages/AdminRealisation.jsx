@@ -39,7 +39,7 @@ const AdminRealisation = () => {
  const handleSave = async (id, updatedData) => {
   try {
     const token = localStorage.getItem("token");
-    const response = await fetch(`${API_URL}/realisations/${id}`, {
+    const response = await fetch(`${API_URL}/api/realisations/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/merge-patch+json",
