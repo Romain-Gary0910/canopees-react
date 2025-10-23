@@ -38,7 +38,7 @@ const AdminPresentation = () => {
     const presentation = presentations[idx];
     try {
       const response = await fetch(
-        `${API_URL}/presentations/${id}`,
+        `${API_URL}/api/presentations/${id}`,
         {
           method: "PATCH",
           headers: {
