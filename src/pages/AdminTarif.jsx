@@ -178,15 +178,14 @@ const AdminTarif = () => {
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="text-primary">Administration – Tarifs</h2>
-        <button type="button" className="admin-btn" onClick={() => navigate("/admin")}>
-          Retour
-        </button>
-      </div>
-
-      <div className="mb-3">
-        <button type="button" className="admin-btn" onClick={handleAddTarif}>
-          Ajouter un tarif
-        </button>
+        <div>
+          <button type="button" className="admin-btn" onClick={() => navigate("/admin")}>
+            Retour
+          </button>
+          <button type="button" className="admin-btn ms-2" onClick={handleAddTarif}>
+            ➕ Ajouter un tarif
+          </button>
+        </div>
       </div>
 
       {message && (
