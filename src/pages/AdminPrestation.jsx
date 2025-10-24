@@ -185,7 +185,7 @@ const AdminPrestation = () => {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Image (URL)</label>
+              <label className="form-label">Image de couverture</label>
               <input
                 type="text"
                 className="form-control"
