@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+
+Disallow: /admin/
+Disallow: /node_modules/
+Disallow: /assets/
+Disallow: /api/
+
+
+Sitemap: https://canopees-react.onrender.com/sitemap.xml
