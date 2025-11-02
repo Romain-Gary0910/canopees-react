@@ -23,7 +23,7 @@ const AdminMessage = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log("Réponse API messages :", data);
-          setMessages(data.member || []); // API Platform v3 hydra:member était pour API Platfrom v2
+          setMessages(data.member || []); // API Platform v3, hydra:member était pour API Platfrom v2
           setIsLoading(false);
         })
         .catch((err) => {
@@ -37,7 +37,7 @@ const AdminMessage = () => {
   const handleDelete = (id) => {
     const token = localStorage.getItem("token");
     if (window.confirm("Voulez-vous vraiment supprimer ce message ?")) {
-      fetch(`${API_URL}/messages/${id}`, {
+      fetch(`${API_URL}/api/messages/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
